@@ -5,9 +5,13 @@
 body{
   margin: 0;
   padding: 0;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+
+
 }
 :root {
   --task-background-color-100: whitesmoke;
+  --task-border-color-light: #d6d2d2;
 }
 
 @media (prefers-color-scheme: light) {

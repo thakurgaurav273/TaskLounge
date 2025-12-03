@@ -13,19 +13,21 @@ type IListItemProps = {
     },
     leadingView?: JSX.Element;
     subtitleTailView?: JSX.Element,
+    handleListItemClick?:()=> void,
+    classNames?: string
 }
-const ListItem = ({ leadingView, user, titleText, subtitleText, subtitleTailViewText, subtitleTailView }: IListItemProps) => {
+const ListItem = ({ leadingView, user, titleText, subtitleText, subtitleTailViewText, subtitleTailView, handleListItemClick, classNames}: IListItemProps) => {
     return (
-        <div className="flex w-full p-[10px] box-border gap-[5px]">
+        <div className={`${classNames} flex w-full p-[10px] box-border gap-[10px] hover:bg-[whitesmoke] cursor-pointer`} onClick={handleListItemClick}>
             {leadingView ? leadingView : <Avatar name={user.name} />}
             <div className="flex flex-col w-full">
                 <div className="flex justify-between">
-                    <span>{titleText}</span>
+                    <span className="text-[14px]">{titleText}</span>
                     <span> <CircleX size={IconSize} /> </span>
                 </div>
                 <div className="flex justify-between">
-                    {subtitleText}
-                    <span className="text-[13px]">{subtitleTailViewText}</span>
+                    <span className="text-[12px]">{subtitleText}</span>
+                    {subtitleTailView ? subtitleTailView : <span className="text-[13px]">{subtitleTailViewText}</span>}
                 </div>
             </div>
         </div>

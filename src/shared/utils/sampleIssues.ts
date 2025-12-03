@@ -1,34 +1,39 @@
 export const issues = [
   {
+    id: "ENG-19679",
     user: { name: "Gaurav Singh" },
-    titleText: "ENG-19679 v5",
+    titleText: "v5",
     subtitleText: "Marked as cancelled",
     subtitleTailViewText: "5d",
     status: 'cancelled'
   },
   {
+    id: "ENG-20340",
     user: { name: "Ananya Sharma" },
-    titleText: "ENG-20340 v2",
+    titleText: "v5",
     subtitleText: "Ready for release",
     subtitleTailViewText: "2h",
     status: 'ready_release'
 
   },
   {
+    id: "ENG-20011",
     user: { name: "Rohan Mehta" },
-    titleText: "ENG-20011 v8",
+    titleText: "v4",
     subtitleText: "In progress",
     subtitleTailViewText: "1d",
     status: 'in_progress'
   },
   {
+    id: "ENG-19822",
     user: { name: "Priya Verma" },
-    titleText: "ENG-19822 v3",
+    titleText: "v3",
     subtitleText: "Waiting for input",
     subtitleTailViewText: "3d",
     status: 'in_progress'
   },
   {
+    id: 5,
     user: { name: "Kunal Gupta" },
     titleText: "ENG-20405 v1",
     subtitleText: "New",
