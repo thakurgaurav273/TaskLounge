@@ -9,16 +9,15 @@ const DescriptionEditor = ({
   onSave?: (content: string) => Promise<void>;
   placeholder?: string;
 }) => {
-  const [content, setContent] = useState(initialValue);
   const [isEditing, setIsEditing] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [isEmpty, setIsEmpty] = useState(!initialValue);
+  const [savedContent, setSavedContent] = useState(initialValue);
   const divRef = useRef<HTMLDivElement>(null);
 
   const resizeDiv = useCallback(() => {
     const div = divRef.current;
     if (!div) return;
-
     div.style.height = "auto";
     const maxHeight = 300;
     const newHeight = Math.min(div.scrollHeight, maxHeight);
@@ -27,16 +26,15 @@ const DescriptionEditor = ({
   }, []);
 
   useEffect(() => {
+    const div = divRef.current;
+    if (!div) return;
+    div.innerHTML = savedContent || "";
+    setIsEmpty(!savedContent.trim());
     resizeDiv();
-  }, [content, resizeDiv]);
-
-  useEffect(() => {
-    resizeDiv();
-  }, [resizeDiv]);
+  }, [savedContent, resizeDiv]);
 
   const handleInput = (e: React.FormEvent<HTMLDivElement>) => {
     const html = e.currentTarget.innerHTML;
-    setContent(html);
     setIsEmpty(html.trim() === "");
     setIsEditing(true);
     resizeDiv();
@@ -44,13 +42,25 @@ const DescriptionEditor = ({
 
   const handleSave = async () => {
     if (!isEditing || isLoading) return;
+    const html = divRef.current?.innerHTML || "";
     setIsLoading(true);
     try {
-      await onSave?.(content);
+      await onSave?.(html);
+      setSavedContent(html);
       setIsEditing(false);
     } finally {
       setIsLoading(false);
     }
+  };
+
+  const handleCancel = () => {
+    const div = divRef.current;
+    if (div) {
+      div.innerHTML = savedContent || "";
+    }
+    setIsEmpty(!savedContent.trim());
+    setIsEditing(false);
+    resizeDiv();
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
@@ -72,7 +82,7 @@ const DescriptionEditor = ({
         ref={divRef}
         contentEditable={!isLoading}
         suppressContentEditableWarning={true}
-        className={`
+        className="
           w-[100%]
           min-h-[40px]
           py-[8px]
@@ -82,11 +92,10 @@ const DescriptionEditor = ({
           text-[14px]
           leading-relaxed
           outline-none
-          ${isLoading ? "cursor-not-allowed opacity-60" : "cursor-text"}
-        `}
+          cursor-text
+        "
         onInput={handleInput}
         onKeyDown={handleKeyDown}
-        dangerouslySetInnerHTML={{ __html: content || "" }}
         style={{ lineHeight: "1.6" }}
       />
 
@@ -109,11 +118,7 @@ const DescriptionEditor = ({
             {isLoading ? "Saving..." : "Save"}
           </button>
           <button
-            onClick={() => {
-              setContent(initialValue || "");
-              setIsEditing(false);
-              setIsEmpty(!(initialValue && initialValue.trim().length));
-            }}
+            onClick={handleCancel}
             className="
               px-[10px] py-[4px]
               text-[13px]

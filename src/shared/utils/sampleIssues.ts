@@ -5,7 +5,7 @@ export const issues = [
     titleText: "v5",
     subtitleText: "Marked as cancelled",
     subtitleTailViewText: "5d",
-    status: 'cancelled'
+    status: 'Cancelled'
   },
   {
     id: "ENG-20340",
@@ -13,7 +13,7 @@ export const issues = [
     titleText: "v5",
     subtitleText: "Ready for release",
     subtitleTailViewText: "2h",
-    status: 'ready_release'
+    status: 'Ready For Release'
 
   },
   {
@@ -22,7 +22,7 @@ export const issues = [
     titleText: "v4",
     subtitleText: "In progress",
     subtitleTailViewText: "1d",
-    status: 'in_progress'
+    status: 'In Progress'
   },
   {
     id: "ENG-19822",
@@ -30,7 +30,7 @@ export const issues = [
     titleText: "v3",
     subtitleText: "Waiting for input",
     subtitleTailViewText: "3d",
-    status: 'in_progress'
+    status: 'In Progress'
   },
   {
     id: 5,
@@ -38,6 +38,6 @@ export const issues = [
     titleText: "ENG-20405 v1",
     subtitleText: "New",
     subtitleTailViewText: "15m",
-    status: 'in_progress'
+    status: 'In Progress'
   },
 ];
