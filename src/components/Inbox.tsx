@@ -3,6 +3,7 @@ import { issues } from "../shared/utils/sampleIssues"
 import ListItem from "./ui/ListItem"
 import { Ellipsis, Files, GitBranch, Link, ListFilter, Settings2 } from "lucide-react";
 import DescriptionEditor from "./ui/DecriptionEditor";
+import IssuePropertySideBar from "./ui/IssuePropertySideBar";
 
 const IconSize = 16;
 const Inbox = () => {
@@ -46,17 +47,7 @@ const Inbox = () => {
                                 />
                             </div>
                         </div>
-                        <div className="w-[230px] flex-shrink-0 border-l border-[var(--task-border-color-light)] px-[20px]">
-                            <div className="prop-header flex justify-between h-[40px] items-center">
-                                Properties
-                                <Link size={IconSize}/>
-                                <Files size={IconSize}/>
-                                <GitBranch size={IconSize}/>
-                            </div>
-                            <div className="flex flex-col">
-                                {selectedItem.status}
-                            </div>
-                        </div>
+                       <IssuePropertySideBar issue={selectedItem}/>
                     </div>
                 </div>
             )}

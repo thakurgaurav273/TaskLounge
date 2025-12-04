@@ -68,7 +68,7 @@ const Sidebar = () => {
                 })}
             </ul>
 
-            <h6 style={{ marginTop: '40px', marginBottom: '10px'}} className="text-[15px] flex items-center" onClick={()=>{
+            <h6 style={{ marginTop: '40px', marginBottom: '10px'}} className="text-[15px] flex items-center cursor-pointer" onClick={()=>{
                 setOpenTeamsDropdown(!openTeamsDropdown);
             }}>Your Teams {!openTeamsDropdown ? <ChevronRight/> : <ChevronDown/>} </h6>
             {openTeamsDropdown && <ul className="list-none w-[100%] item-list flex flex-col gap-[10px]">
