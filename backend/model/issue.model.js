@@ -46,7 +46,6 @@ const commentSchema = new Schema({
 const issueSchema = new Schema({
     ticketId: {
         type: String,
-        required: true,
         unique: true,
         trim: true
     },

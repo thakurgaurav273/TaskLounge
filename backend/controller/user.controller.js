@@ -1,27 +1,19 @@
-import bcrypt from 'bcryptjs'; // Make sure bcrypt is imported
+import bcrypt from 'bcryptjs';
 import userModel from "../model/user.model.js";
 
 async function createUser(req, res) {
     try {
-        const { username, email, password, status, avatar } = req.body;
+        const { username, name, email, password, status, avatar } = req.body;
 
-        if (username || email || password) {
-            res.status(400).json({
-                message: "Required fields are missing"
-            })
-        }
-        const newUserDetails = {
-            username,
-            email,
-            password,
-            ...(status && { status }),
-            ...(avatar && { avatar })
+        // Fix: Check if REQUIRED fields are MISSING (use && not ||)
+        if (!username || !email || !password || !name) {
+            return res.status(400).json({
+                message: "Required fields (username, email, password) are missing"
+            });
         }
 
-        let hashedPassword = "";
-        if (password) {
-            hashedPassword = await bcrypt.hash(password, 10);
-        }
+        // Hash password BEFORE checking existing user
+        const hashedPassword = await bcrypt.hash(password, 10);
 
         const existingUser = await userModel.findOne({
             $or: [{ email }, { username }]
@@ -34,23 +26,25 @@ async function createUser(req, res) {
         }
 
         const newUser = new userModel({
-            ...newUserDetails,
+            username,
+            email,
+            name,
             password: hashedPassword,
+            ...(status && { status }),
+            ...(avatar && { avatar })
         });
 
         const response = await newUser.save();
+        
+        const userObj = response.toObject();
+        delete userObj.password;
 
-        if (response) {
-            const userObj = response.toObject();
-            delete userObj.password; // Remove password from the returned object
-
-            res.status(200).json({
-                success: true,
-                user: userObj
-            });
-        }
+        return res.status(201).json({  // Use 201 for created resource
+            success: true,
+            user: userObj
+        });
     } catch (error) {
-        res.status(500).json({
+        return res.status(500).json({
             message: "Internal Server Error",
             error: error.message
         });
@@ -59,16 +53,16 @@ async function createUser(req, res) {
 
 async function getUsers(req, res) {
     try {
-        const users = await userModel.find({});
-        res.status(200).json({
+        const users = await userModel.find({}, { password: 0 }); // Exclude password by default
+        return res.status(200).json({
             success: true,
             users
-        })
+        });
     } catch (error) {
-        res.status(500).json({
+        return res.status(500).json({
             success: false,
-            error
-        })
+            error: error.message
+        });
     }
 }
 

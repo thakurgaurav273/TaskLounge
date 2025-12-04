@@ -5,7 +5,10 @@ const initialState = {
     loggedInUser: null,
     selectedFilter: [],
     inboxNotifications: [],
-    issues: []
+    issues: [],
+    showCreateIssue: false,
+    usersList: [],
+    showVoiceCommand: false
 }
 
 export const appStateSlice = createSlice({
@@ -20,6 +23,15 @@ export const appStateSlice = createSlice({
         },
         addFilter: (state, action) => {
             state.selectedFilter.push(action.payload);
+        },
+        setShowVoiceCommand: (state, action) => {
+            state.showVoiceCommand = action.payload
+        },
+        setShowCreateIssue: (state, action) =>{
+            state.showCreateIssue = action.payload;
+        },
+        setUsersList: (state, action)=>{
+            state.usersList = action.payload;
         },
         removeFilter: (state, action) => {
             let updatedFilter = state.selectedFilter.filter((ele) => ele !== action.payload);
@@ -42,6 +54,6 @@ export const appStateSlice = createSlice({
     }
 });
 
-export const { setSelectedTab, setLoggedInUser, addFilter, removeFilter, addInboxNotification, removeInboxNotification, addIssue, removeIssue } = appStateSlice.actions;
+export const { setSelectedTab, setShowVoiceCommand, setShowCreateIssue, setUsersList, setLoggedInUser, addFilter, removeFilter, addInboxNotification, removeInboxNotification, addIssue, removeIssue } = appStateSlice.actions;
 
 export default appStateSlice.reducer;

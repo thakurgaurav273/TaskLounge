@@ -1,5 +1,6 @@
 import { useSelector } from "react-redux"
 import Inbox from "./Inbox"
+import MyIssues from "./MyIssues"
 
 const Content = () => {
   const contentToDisplay = useSelector((state:any)=> state.selectedTab)
@@ -8,9 +9,9 @@ const Content = () => {
       <div className="flex h-[40px] justify-center items-center w-ful">
         Inbox
       </div>
-      <div className="flex w-[99%] flex-1 border-1 box-border bg-[white] border-[var(--task-border-color-light)] rounded-[8px]">
+      <div className="flex w-[99%] h-[94%] border-1 box-border bg-[white] border-[var(--task-border-color-light)] rounded-[8px]">
         {contentToDisplay === 'inbox'
-          ? <Inbox/> : null
+          ? <Inbox/> : contentToDisplay === 'my_issues' ? <MyIssues/>: null
         }
       </div>
     </div>

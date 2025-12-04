@@ -3,10 +3,12 @@ import { useState, useRef, useEffect, useCallback } from "react";
 const DescriptionEditor = ({
   initialValue = "",
   onSave,
+  handleSaveDirectly,
   placeholder = "Add description...",
 }: {
   initialValue?: string;
-  onSave?: (content: string) => Promise<void>;
+  onSave?: (content: string) => void;
+  handleSaveDirectly?: boolean;
   placeholder?: string;
 }) => {
   const [isEditing, setIsEditing] = useState(false);
@@ -38,6 +40,9 @@ const DescriptionEditor = ({
     setIsEmpty(html.trim() === "");
     setIsEditing(true);
     resizeDiv();
+    if(handleSaveDirectly){
+          handleSave();
+    }
   };
 
   const handleSave = async () => {
@@ -73,7 +78,7 @@ const DescriptionEditor = ({
   return (
     <div className="w-[100%] relative">
       {isEmpty && !isLoading && (
-        <div className="absolute left-[0] top-[10px] pointer-events-none text-[13px] text-[#9ca3af] italic">
+        <div className="absolute left-[0] top-[10px] pointer-events-none text-[15px] text-[#9ca3af]">
           {placeholder}
         </div>
       )}
@@ -99,7 +104,7 @@ const DescriptionEditor = ({
         style={{ lineHeight: "1.6" }}
       />
 
-      {isEditing && (
+      {isEditing && !handleSaveDirectly && (
         <div className="flex gap-[8px] mt-[8px] pt-[8px] border-t border-[#e5e7eb]">
           <button
             onClick={handleSave}
@@ -136,9 +141,9 @@ const DescriptionEditor = ({
         </div>
       )}
 
-      <div className="mt-[4px] text-[11px] text-[#6b7280]">
+      {!handleSaveDirectly && <div className="mt-[4px] text-[11px] text-[#6b7280]">
         {isEditing && "Cmd/Ctrl + Enter to save"}
-      </div>
+      </div>}
     </div>
   );
 };

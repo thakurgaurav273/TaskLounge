@@ -3,7 +3,6 @@ async function createIssue(req, res) {
     try {
         {
             const {
-                ticketId,
                 team,
                 label,
                 project,
@@ -17,9 +16,8 @@ async function createIssue(req, res) {
                 comments
             } = req.body;
 
-            if (!ticketId || !title) {
-                return res.status(400).json({ message: "Missing required fields: ticketId or title." });
-            }
+            const ticketId = await getNextTicketId(team);
+
 
             const newIssueData = {
                 ticketId,
@@ -57,6 +55,28 @@ async function createIssue(req, res) {
         console.log(error);
         res.status(500).json({ message: "Internal server error during issue creation." });
     }
+}
+
+async function getNextTicketId(team) {
+    // Regex pattern to find ticketIds like "ENG-123"
+    const regex = new RegExp(`^${team}-(\\d+)$`);
+
+    // Find the issue with the highest numeric suffix for that team
+    const lastIssue = await IssueModel
+        .find({ ticketId: { $regex: regex } })
+        .sort({ ticketId: -1 }) // Sort descending by ticketId string
+        .limit(1)
+        .lean();
+
+    if (lastIssue.length === 0) {
+        return `${team}-1`; // No previous issues for the team
+    }
+
+    const lastTicketId = lastIssue[0].ticketId;
+    const lastNumber = parseInt(lastTicketId.split('-')[1], 10);
+
+    const nextNumber = lastNumber + 1;
+    return `${team}-${nextNumber}`;
 }
 
 async function getIssues(req, res) {

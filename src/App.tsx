@@ -1,17 +1,52 @@
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import './App.css'
-import Content from './components/Content'
-import Sidebar from './components/Sidebar'
+import { useEffect } from 'react';
+import { setLoggedInUser } from './app/slices/appSlice';
+import LoginPage from './pages/LoginPage';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import Home from './pages/Home';
+import SignupPage from './pages/SignupPage';
+import PageNotFound from './pages/NotFound';
 
 function App() {
-  const currentStore = useSelector((state:any) => state.inboxNotification);
+  const dispatch = useDispatch();
+  const user = useSelector((state:any)=> state.loggedInUser)
 
-  console.log(currentStore);
+  useEffect(() => {
+    const stringifiedUserObject = localStorage.getItem('user');
+    if (stringifiedUserObject) {
+      dispatch(setLoggedInUser(JSON.parse(stringifiedUserObject)));
+    }
+  }, [])
+
+
+
+  const privateRoutes = () => {
+    return (
+      <Routes>
+        <Route path='/' element={<Home />} />
+        <Route path='*' element={<PageNotFound/>} />
+        <Route path='/login' element={<LoginPage />} />
+        <Route path='/signup' element={<SignupPage />} />
+      </Routes>
+    )
+  }
+
+  const publicRoutes = () => {
+    return (
+      <Routes>
+        <Route path='/login' element={<LoginPage />} />
+        <Route path='/signup' element={<SignupPage />} />
+        <Route path='/' element={<LoginPage />} />
+        <Route path='*' element={<PageNotFound/>} />
+      </Routes>
+    )
+  }
   return (
-    <div className='App flex'>
-      <Sidebar/>
-      <Content/>
-    </div>
+    <BrowserRouter>
+      {user ? privateRoutes() : publicRoutes()}
+    </BrowserRouter>
+
   )
 }
 
