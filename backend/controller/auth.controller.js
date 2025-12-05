@@ -6,7 +6,6 @@ async function login(req, res) {
     const { email, password } = req.body;
 
     const existingUser = await userModel.findOne({ email: email }).lean();
-    // Use .lean() for plain object without Mongoose methods & circular refs
 
     if (!existingUser) {
       return res.status(401).json({

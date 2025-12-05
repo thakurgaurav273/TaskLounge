@@ -21,7 +21,7 @@ const replySchema = new Schema({
         required: true,
     },
 
-}, { _id: true, timestamps: true }); // Added timestamps to Reply
+}, { _id: true, timestamps: true });
 
 // 2. Define the Comment Subdocument Schema
 const commentSchema = new Schema({

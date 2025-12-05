@@ -81,7 +81,11 @@ async function getNextTicketId(team) {
 
 async function getIssues(req, res) {
     try {
-        const issues = await IssueModel.find();
+        const issues = await IssueModel.find()
+            .populate('assignee', 'name status username avatar') 
+            .populate('createdBy', 'name status username avatar')
+            .populate('comments.author', 'name status username avatar')
+            .populate('comments.replies.author', 'name status username avatar');
 
         res.status(200).json({
             success: true,
