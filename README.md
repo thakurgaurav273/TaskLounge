@@ -6,9 +6,9 @@ A voice-enabled task tracker that lets you create tasks by simply speaking. Insp
 
 - **Voice Input**: Create tasks by speaking naturally
 - **Smart Parsing**: AI extracts title, priority, due dates from speech
-- **Kanban Board**: Drag-and-drop tasks across To Do, In Progress, Done
+- **Kanban Board**: Tabular view based on the status (To Do, In Progress, Done)
 - **List View**: Alternative view for task management
-- **Filters & Search**: Find tasks by status, priority, or keywords
+- **Filters & Search**: Find tasks by status, priority
 - **Manual Creation**: Traditional form-based task creation
 
 ## 🚀 Quick Start
@@ -51,16 +51,12 @@ http://localhost:5173
 
 ### Backend `.env`
 ```env
-PORT=5000
-MONGODB_URI=mongodb://localhost:27017/TaskLounge
-OPENAI_API_KEY=your_openai_key
-# OR
-ANTHROPIC_API_KEY=your_claude_key
-```
-
-### Frontend `.env`
-```env
-VITE_API_URL=http://localhost:5000/api
+PORT=8080
+MONGO_URI= YOUR_URL
+GROQ_API_KEY=YOUR_API_KEY
+CLOUDINARY_API_KEY=KEY
+CLOUDINARY_API_SECRET=SECRET
+CLOUDINARY_CLOUD_NAME=NAME
 ```
 
 ## 🏗️ Tech Stack
@@ -69,16 +65,15 @@ VITE_API_URL=http://localhost:5000/api
 - React 18 + TypeScript
 - Vite
 - Tailwind CSS
-- Axios
 
 **Backend**
 - Node.js + Express
 - MongoDB + Mongoose
-- OpenAI API / Claude API
+
 
 **Voice Processing**
 - Web Speech API (speech-to-text)
-- OpenAI GPT-4 (natural language parsing)
+- GROQ AI
 
 ## 📡 API Endpoints
 
@@ -89,19 +84,6 @@ VITE_API_URL=http://localhost:5000/api
 | PUT | `/api/tasks/:id` | Update a task |
 | DELETE | `/api/tasks/:id` | Delete a task |
 | POST | `/api/parse` | Parse voice transcript |
-
-### Example Request
-```bash
-POST /api/tasks
-Content-Type: application/json
-
-{
-  "title": "Review pull request",
-  "priority": "High",
-  "status": "To Do",
-  "dueDate": "2025-12-04T18:00:00Z"
-}
-```
 
 ## 🎯 How Voice Input Works
 
@@ -131,9 +113,7 @@ All tasks default to "To Do" unless explicitly stated.
 
 ## 🔮 Future Enhancements
 
-- User authentication & multi-user support
 - Team collaboration features
-- Mobile app (React Native)
 - More voice commands (edit, delete by voice)
 - Support for multiple languages
 - Export tasks to CSV/JSON
