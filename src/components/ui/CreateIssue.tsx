@@ -7,14 +7,14 @@ import { Labels, Project, Status, Teams } from "../../shared/utils/data";
 import { useDispatch, useSelector } from "react-redux";
 import { setShowCreateIssue } from "../../app/slices/appSlice";
 
-interface PopupState {
+export interface PopupState {
     isOpen: boolean;
     x: number;
     y: number;
     context: string | null;
 }
 
-interface FilterButton {
+export interface FilterButton {
     id: string;
     title: string;
     icon: any;
@@ -91,7 +91,7 @@ const CreateIssue = ({issue}: {issue?:any}) => {
         await fetch("http://localhost:8080/api/issues/create", {
             method: 'POST',
             headers: {
-                "content-type": "application/json"
+                "Content-Type": "application/json"
             },
             body: JSON.stringify({
                 team: selectedTeam,

@@ -8,12 +8,14 @@ type IAvatarProps = {
     font?: string;
   };
   avatarUrl?: string;
+  status?: string;
 };
 
-const Avatar = ({ 
-  name, 
-  avatarStyle, 
-  avatarUrl 
+const Avatar = ({
+  name,
+  avatarStyle,
+  avatarUrl,
+  status
 }: IAvatarProps) => {
   const {
     height = 40,
@@ -29,8 +31,16 @@ const Avatar = ({
     .join('')
     .slice(0, 2);
 
+  const statusSize = Math.min(height, width) * 0.4; 
+  const statusStyle = {
+    height: `${statusSize}px`,
+    width: `${statusSize}px`,
+    backgroundColor: status === 'away' ? '#10b981' : 'gray',
+    boxShadow: '0 1px 3px rgba(0,0,0,0.2)'
+  };
+
   return (
-    <div 
+    <div
       style={{
         height: `${height}px`,
         width: `${width}px`,
@@ -43,23 +53,34 @@ const Avatar = ({
         justifyContent: 'center',
         fontSize: `${Math.min(height, width) * 0.4}px`,
         fontWeight: 'bold',
-        overflow: 'hidden',
-        flexShrink: 0 
+        flexShrink: 0,
+        position: 'relative'
       }}
     >
       {avatarUrl ? (
-        <img 
-          src={avatarUrl} 
+        <img
+          src={avatarUrl}
           alt={name}
           style={{
             height: '100%',
             width: '100%',
-            objectFit: 'cover'
+            objectFit: 'cover',
+            borderRadius: '50%'
           }}
         />
       ) : (
         initials
       )}
+      
+       <div
+          style={{
+            position: 'absolute',
+            right: -statusSize * 0.1,
+            bottom: -statusSize * 0.1,
+            borderRadius: '50%',
+            ...statusStyle
+          }}
+        />
     </div>
   );
 };

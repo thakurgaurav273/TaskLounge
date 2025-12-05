@@ -1,5 +1,5 @@
 // components/StatusIcon.tsx
-import { CheckCircle2, Circle, Clock, XCircle, AlertCircle, PauseCircle } from 'lucide-react';
+import { CheckCircle2, Circle, Clock, XCircle, AlertCircle, PauseCircle, SignalLow, SignalMedium, SignalHigh } from 'lucide-react';
 
 interface StatusIconProps {
   status: string;
@@ -18,7 +18,12 @@ const StatusIcon: React.FC<StatusIconProps> = ({ status, size = 16 }) => {
     'blocked': { Icon: XCircle, color: '#ef4444' },       
     'Cancelled': { Icon: XCircle, color: '#64748b' },
     'review': { Icon: AlertCircle, color: '#f59e0b' },  
-    'paused': { Icon: PauseCircle, color: '#64748b' }
+    'paused': { Icon: PauseCircle, color: '#64748b' },
+    'low': { Icon: SignalLow, color: '#64748b' },
+    'medium': { Icon: SignalMedium, color: '#64748b' },
+    'high': { Icon: SignalHigh, color: '#64748b' },
+    
+    
   };
   
   const config = iconMap[statusLower] || iconMap['backlog'];

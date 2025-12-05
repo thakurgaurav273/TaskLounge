@@ -5,11 +5,13 @@ const DescriptionEditor = ({
   onSave,
   handleSaveDirectly,
   placeholder = "Add description...",
+  classNames = '',
 }: {
   initialValue?: string;
   onSave?: (content: string) => void;
   handleSaveDirectly?: boolean;
   placeholder?: string;
+  classNames?: string;
 }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -87,8 +89,7 @@ const DescriptionEditor = ({
         ref={divRef}
         contentEditable={!isLoading}
         suppressContentEditableWarning={true}
-        className="
-          w-[100%]
+        className= {`w-[100%]
           min-h-[40px]
           py-[8px]
           bg-[#ffffff]
@@ -98,7 +99,8 @@ const DescriptionEditor = ({
           leading-relaxed
           outline-none
           cursor-text
-        "
+          ${classNames}
+          `}
         onInput={handleInput}
         onKeyDown={handleKeyDown}
         style={{ lineHeight: "1.6" }}
@@ -140,10 +142,6 @@ const DescriptionEditor = ({
           </button>
         </div>
       )}
-
-      {!handleSaveDirectly && <div className="mt-[4px] text-[11px] text-[#6b7280]">
-        {isEditing && "Cmd/Ctrl + Enter to save"}
-      </div>}
     </div>
   );
 };
