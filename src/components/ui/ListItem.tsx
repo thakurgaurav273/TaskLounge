@@ -7,10 +7,7 @@ type IListItemProps = {
     titleText: string,
     subtitleText: string,
     subtitleTailViewText: string,
-    user: {
-        name: string,
-        avatarUrl?: string
-    },
+    user: any;
     leadingView?: JSX.Element;
     subtitleTailView?: JSX.Element,
     handleListItemClick?:()=> void,
@@ -19,7 +16,7 @@ type IListItemProps = {
 const ListItem = ({ leadingView, user, titleText, subtitleText, subtitleTailViewText, subtitleTailView, handleListItemClick, classNames}: IListItemProps) => {
     return (
         <div className={`${classNames} flex w-full p-[10px] box-border gap-[10px] hover:bg-[whitesmoke] cursor-pointer`} onClick={handleListItemClick}>
-            {leadingView ? leadingView : <Avatar name={user.name} />}
+            {leadingView ? leadingView : user ? <Avatar name={user.name} /> : null}
             <div className="flex flex-col w-full">
                 <div className="flex justify-between">
                     <span className="text-[14px]">{titleText}</span>

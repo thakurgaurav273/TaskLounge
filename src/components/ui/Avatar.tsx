@@ -72,7 +72,7 @@ const Avatar = ({
         initials
       )}
       
-       <div
+       {status && <div
           style={{
             position: 'absolute',
             right: -statusSize * 0.1,
@@ -80,7 +80,7 @@ const Avatar = ({
             borderRadius: '50%',
             ...statusStyle
           }}
-        />
+        />}
     </div>
   );
 };

@@ -3,15 +3,21 @@ import Inbox from "./Inbox"
 import MyIssues from "./MyIssues"
 
 const Content = () => {
-  const contentToDisplay = useSelector((state:any)=> state.selectedTab)
+  const contentToDisplay: string = useSelector((state: any) => state.selectedTab);
+  const titleToShow = contentToDisplay
+    .split('_')
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(' ');
+
+  console.log(titleToShow);
   return (
     <div className="flex flex-1 w-[100%] flex-col h-[100%] box-border bg-[var(--task-background-color-100)]">
       <div className="flex h-[40px] justify-center items-center w-ful">
-        Inbox
+        {titleToShow}
       </div>
       <div className="flex w-[99%] h-[94%] border-1 box-border bg-[white] border-[var(--task-border-color-light)] rounded-[8px]">
         {contentToDisplay === 'inbox'
-          ? <Inbox/> : contentToDisplay === 'my_issues' ? <MyIssues/>: null
+          ? <Inbox /> : contentToDisplay === 'my_issues' ? <MyIssues /> : null
         }
       </div>
     </div>

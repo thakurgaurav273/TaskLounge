@@ -29,12 +29,15 @@ const Home = () => {
         setExtractedData(data);
         dispatch(setShowVoiceCommand(false));
     }
+    const handleClose = () => {
+        dispatch(setShowVoiceCommand(false));
+    }
     return (
         <div className='App flex'>
             <Sidebar />
             <Content />
             {(showCreateIssue || extractedData) && <CreateIssue issue={extractedData} />}
-            {showVoiceCommand && <VoiceIssueCreator onIssueExtracted={handleData} />
+            {showVoiceCommand && <VoiceIssueCreator onIssueExtracted={handleData} onCloseRequest={handleClose} />
             }
         </div>
     )

@@ -35,24 +35,41 @@ const DescriptionEditor = ({
     div.innerHTML = savedContent || "";
     setIsEmpty(!savedContent.trim());
     resizeDiv();
-  }, [savedContent, resizeDiv]);
+     if (handleSaveDirectly && onSave) {
+      const html = div.innerHTML;
+      if (html.trim() !== savedContent?.trim()) {
+        onSave(html);
+      }
+    }
+  }, [savedContent, resizeDiv, handleSaveDirectly, onSave]);
+
+  useEffect(() => {
+    if (initialValue !== savedContent) {
+      setSavedContent(initialValue);
+    }
+  }, [initialValue]);
 
   const handleInput = (e: React.FormEvent<HTMLDivElement>) => {
     const html = e.currentTarget.innerHTML;
     setIsEmpty(html.trim() === "");
     setIsEditing(true);
     resizeDiv();
-    if(handleSaveDirectly){
-          handleSave();
+     if (handleSaveDirectly && onSave) {
+      const trimmedHtml = html.trim();
+      if (trimmedHtml !== savedContent?.trim()) {
+        onSave(html); // Immediate save on every change
+      }
     }
   };
 
-  const handleSave = async () => {
-    if (!isEditing || isLoading) return;
-    const html = divRef.current?.innerHTML || "";
+  const handleSave = () => {
+    if (isLoading || !divRef.current) return;
+    
+    const html = divRef.current.innerHTML;
     setIsLoading(true);
+    
     try {
-      await onSave?.(html);
+      onSave?.(html);
       setSavedContent(html);
       setIsEditing(false);
     } finally {

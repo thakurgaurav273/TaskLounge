@@ -10,21 +10,23 @@ export interface ExtractedIssueData {
 
 interface VoiceIssueCreatorProps {
   onIssueExtracted: (data: ExtractedIssueData) => void;
+  onCloseRequest: () => void; 
 }
 
-const VoiceIssueCreator: React.FC<VoiceIssueCreatorProps> = ({ onIssueExtracted }) => {
+const VoiceIssueCreator: React.FC<VoiceIssueCreatorProps> = ({ onIssueExtracted, onCloseRequest }) => {
   const [isRecording, setIsRecording] = useState<boolean>(false);
   const [transcript, setTranscript] = useState<string>('');
   const [isProcessing, setIsProcessing] = useState<boolean>(false);
   const [error, setError] = useState<string>('');
   
   const recognitionRef = useRef<any>(null);
+  const modalRef = useRef<HTMLDivElement>(null); 
 
   useEffect(() => {
     if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
       const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
       recognitionRef.current = new SpeechRecognition();
-      recognitionRef.current.continuous = true;
+      recognitionRef.current.continuous = false;
       recognitionRef.current.interimResults = true;
 
       recognitionRef.current.onresult = (event: any) => {
@@ -51,6 +53,24 @@ const VoiceIssueCreator: React.FC<VoiceIssueCreatorProps> = ({ onIssueExtracted 
       setError('Speech recognition is not supported in your browser. Please use Chrome or Edge.');
     }
   }, []);
+  
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (modalRef.current && !modalRef.current.contains(event.target as Node)) {
+        if (isRecording) {
+            recognitionRef.current?.stop();
+            setIsRecording(false);
+        }
+        onCloseRequest(); 
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [isRecording, onCloseRequest]); 
 
   const startRecording = () => {
     if (recognitionRef.current) {
@@ -116,7 +136,10 @@ const VoiceIssueCreator: React.FC<VoiceIssueCreatorProps> = ({ onIssueExtracted 
       backdropFilter: 'blur(2px)',
       WebkitBackdropFilter: 'blur(2px)'
     }}>
-      <div className="bg-white rounded-2xl shadow-2xl p-8 max-w-md w-full mx-4">
+      <div 
+        ref={modalRef} 
+        className="bg-white rounded-2xl shadow-2xl p-8 max-w-md w-full mx-4"
+      >
         <div className="mb-6">
           <h2 className="text-2xl font-bold text-slate-800">Voice to Issue</h2>
           <p className="text-sm text-slate-600 mt-1">AI-Powered Issue Creation</p>

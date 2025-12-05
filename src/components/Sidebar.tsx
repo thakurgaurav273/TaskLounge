@@ -21,7 +21,6 @@ const Sidebar = () => {
             icon: <InboxIcon size={IconSize} />,
             label: "Inbox",
             onClick: () => {
-                // alert("Feature will be added soon");
                 dispatch(setSelectedTab('inbox'));
             },
         },
@@ -30,7 +29,6 @@ const Sidebar = () => {
             icon: <ScanLine size={IconSize} />,
             label: "My issues",
             onClick: () => {
-                // alert("Feature will be added soon")
                 dispatch(setSelectedTab('my_issues'));
             },
         },

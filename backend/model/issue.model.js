@@ -91,6 +91,10 @@ const issueSchema = new Schema({
         ref: 'User',
         required: false
     },
+    dueDate: {
+        type: Date,
+        required: false,
+    },
     comments: [commentSchema],
 
     createdBy: {

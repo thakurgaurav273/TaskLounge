@@ -9,10 +9,13 @@ export type Issue = {
     description: string;
     createdAt: Date;
     updatedAt: Date;
+    createdBy:any;
     attachments?: Array<string>;
-    priority?: string;
-    status?: string;
+    priority: string;
+    status: string;
+    dueDate?:any;
     comments?: Array<any>;
+    assignee?: Array<any>;
 }
 
 const IssueListItem = ({item, onClick}: {item: Issue, onClick?: () => void}) => {
