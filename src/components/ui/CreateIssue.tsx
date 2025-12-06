@@ -21,7 +21,7 @@ export interface FilterButton {
     options: any[];
 }
 
-const CreateIssue = ({issue}: {issue?:any}) => {
+const CreateIssue = ({ issue, extractedData, setExtractedData }: { issue?: any, extractedData?: any, setExtractedData?: any }) => {
     const [selectedTeam, setSelectedTeam] = useState<string>("ENG");
     const [isMaximized, setIsMaximized] = useState<boolean>(false);
     const [currentStatus, setCurrentStatus] = useState<string>(issue ? issue.status : 'Status');
@@ -30,7 +30,7 @@ const CreateIssue = ({issue}: {issue?:any}) => {
         title: 'Assignee',
         id: ''
     });
-    const user = useSelector((state:any)=> state.loggedInUser)
+    const user = useSelector((state: any) => state.loggedInUser)
     const [title, setTitle] = useState<string>(issue ? issue.title : '');
     const [project, setProject] = useState<string>("Project");
     const [label, setLabel] = useState<Array<string>>([]);
@@ -105,8 +105,10 @@ const CreateIssue = ({issue}: {issue?:any}) => {
                 createdBy: user._id
             })
         })
+        if (extractedData) {
+            setExtractedData(null);
+        }
         dispatch(setShowCreateIssue(false))
-
     }
 
     const filtersButtons: FilterButton[] = [
@@ -178,6 +180,9 @@ const CreateIssue = ({issue}: {issue?:any}) => {
                         <div className="right-buttons flex items-center gap-[10px]">
                             {isMaximized ? <Minimize2 className="cursor-pointer" onClick={() => setIsMaximized(!isMaximized)} /> : <Maximize2 size={18} className="cursor-pointer" onClick={() => setIsMaximized(!isMaximized)} />}
                             <X onClick={() => {
+                                if (extractedData) {
+                                    setExtractedData(null);
+                                }
                                 dispatch(setShowCreateIssue(false))
                             }} />
                         </div>
@@ -186,11 +191,11 @@ const CreateIssue = ({issue}: {issue?:any}) => {
                         <input type="text" placeholder="Issue title" value={title} onChange={(e) => setTitle(e.target.value)} className="outline-none border-0 w-full text-[18px] font-bold" />
                     </div>
                     <div className="description">
-                        <DescriptionEditor 
-                            initialValue={description}    
+                        <DescriptionEditor
+                            initialValue={description}
                             onSave={(content) => {
                                 setDescription(content);
-                        }} />
+                            }} />
                     </div>
                 </div>
 

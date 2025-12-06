@@ -1,8 +1,9 @@
-import { ChevronDown, ChevronRight, InboxIcon, Mic, PenBoxIcon, ScanLine, Search } from "lucide-react"
+import { ChevronDown, ChevronRight, ChevronUp, InboxIcon, LogOut, Mic, PenBoxIcon, ScanLine, Search } from "lucide-react"
 import { useDispatch, useSelector } from "react-redux";
 import { setSelectedTab, setShowCreateIssue, setShowVoiceCommand } from "../app/slices/appSlice";
 import { Teams } from "../shared/utils/data";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 type ListItem = {
     id: string;
@@ -13,6 +14,8 @@ type ListItem = {
 const IconSize = 20;
 const Sidebar = () => {
     const selectedTab = useSelector((state: any) => state.selectedTab);
+    const [dropdownOpen, setDropdownOpen] = useState<boolean>(false);
+    const history = useNavigate();
     const dispatch = useDispatch();
     const [openTeamsDropdown, setOpenTeamsDropdown] = useState<boolean>(false);
     const topListItems: ListItem[] = [
@@ -25,7 +28,7 @@ const Sidebar = () => {
             },
         },
         {
-            id: "my_issue",
+            id: "my_issues",
             icon: <ScanLine size={IconSize} />,
             label: "My issues",
             onClick: () => {
@@ -41,12 +44,39 @@ const Sidebar = () => {
             }
         }
     ]
+
+    const actions = [
+        {
+            id: 'logout',
+            icon: <LogOut/>,
+            onClick: () =>{
+                localStorage.removeItem('user');
+                history('/login');
+            },
+            title: 'Logout'
+        }
+    ]
+    const getDropdownView = () =>{
+        return (
+            <div className="h-screen w-screen fixed top-0 left-0 bg-[transparent]" onClick={()=> setDropdownOpen(false)}>
+                <div className="w-[200px] h-[220px] p-3 bg-[white] absolute top-10 border-1 border-[var(--task-border-color-light)]">
+                {actions.map((item)=>{
+                    return (<button className="flex w-full p-2 items-center gap-2 hover:bg-[whitesmoke]" onClick={item.onClick}>
+                        {item.icon}
+                        {item.title} 
+                        </button>)
+                })}
+            </div>
+            </div>
+        )
+    }
     return (
         <div className="h-[100%] w-[230px] p-[10px] bg-[var(--task-background-color-100)] box-border">
             <nav className="flex gap-[10px] items-center justify-between mb-[20px]">
                 <div className="brand-logo flex items-center gap-[4px]">
                     Gaurav's Team
-                    <ChevronDown size={IconSize} />
+                    {dropdownOpen ? <ChevronUp onClick={()=> setDropdownOpen(false)} size={IconSize} /> : <ChevronDown onClick={()=> setDropdownOpen(true)} size={IconSize} />}
+                    {dropdownOpen && getDropdownView()}
                 </div>
                 <div className="flex gap-[10px] items-center">
                     <Search size={IconSize} />

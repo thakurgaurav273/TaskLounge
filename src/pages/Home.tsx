@@ -32,11 +32,12 @@ const Home = () => {
     const handleClose = () => {
         dispatch(setShowVoiceCommand(false));
     }
+    console.log(extractedData, showCreateIssue)
     return (
         <div className='App flex'>
             <Sidebar />
             <Content />
-            {(showCreateIssue || extractedData) && <CreateIssue issue={extractedData} />}
+            {(showCreateIssue || extractedData) && <CreateIssue issue={extractedData} extractedData={extractedData} setExtractedData={setExtractedData} />}
             {showVoiceCommand && <VoiceIssueCreator onIssueExtracted={handleData} onCloseRequest={handleClose} />
             }
         </div>
