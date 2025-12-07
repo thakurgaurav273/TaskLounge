@@ -9,9 +9,8 @@ const Content = () => {
     .map(word => word.charAt(0).toUpperCase() + word.slice(1))
     .join(' ');
 
-  console.log(titleToShow);
   return (
-    <div className="flex flex-1 w-[100%] flex-col h-[100%] box-border bg-[var(--task-background-color-100)]">
+    <div className="flex flex-1 w-[100%] flex-col h-[100%] box-border overflow-hidden bg-[var(--task-background-color-100)]">
       <div className="flex h-[40px] justify-center items-center w-ful">
         {titleToShow}
       </div>

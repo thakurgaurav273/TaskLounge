@@ -3,7 +3,7 @@ import { Mail, Lock, ArrowRight, CheckCircle } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { setLoggedInUser } from '../app/slices/appSlice';
-
+import Logo from "../assets/logo_light.svg"
 const LoginPage: React.FC = () => {
     const [formData, setFormData] = useState({
         email: '',
@@ -53,8 +53,10 @@ const LoginPage: React.FC = () => {
                 </div>
             )}
             <div className="w-full max-w-[440px] p-[24px]">
-                {/* Logo/Brand */}
                 <div className="mb-[48px] text-center">
+                    <div className='w-full flex items-center justify-center'>
+                    <img src={Logo} height={50} width={280}/>
+                    </div>
                     <h1 className="text-[32px] font-semibold text-[#1a1a1a] mb-[8px]">
                         Welcome back
                     </h1>
@@ -63,12 +65,10 @@ const LoginPage: React.FC = () => {
                     </p>
                 </div>
 
-                {/* Form Card */}
                 <form
                     onSubmit={handleSubmit}
                     className="bg-[#ffffff] rounded-[12px] border-[1px] border-[#e5e7eb] p-[32px] shadow-sm flex flex-col gap-[20px]"
                 >
-                    {/* Email Field */}
                     <div className="flex flex-col gap-[8px]">
                         <label htmlFor="email" className="text-[13px] font-medium text-[#1a1a1a]">
                             Email or Username
@@ -88,7 +88,6 @@ const LoginPage: React.FC = () => {
                         </div>
                     </div>
 
-                    {/* Password Field */}
                     <div className="flex flex-col gap-[8px]">
                         <label htmlFor="password" className="text-[13px] font-medium text-[#1a1a1a]">
                             Password
@@ -108,7 +107,6 @@ const LoginPage: React.FC = () => {
                         </div>
                     </div>
 
-                    {/* Forgot Password */}
                     <div className="flex justify-end">
                         <button
                             type="button"
@@ -118,9 +116,8 @@ const LoginPage: React.FC = () => {
                         </button>
                     </div>
 
-                    {/* Submit Button */}
                     <button
-                        type="submit"  // Submit form
+                        type="submit"  
                         className="w-full border-[0] bg-[#5e6ad2] hover:bg-[#4f5bc4] text-[#ffffff] font-medium text-[14px] py-[12px] px-[24px] rounded-[8px] flex items-center justify-center gap-[8px] transition-all mt-[8px]"
                     >
                         Sign in
@@ -128,14 +125,12 @@ const LoginPage: React.FC = () => {
                     </button>
                 </form>
 
-                {/* Divider */}
                 <div className="flex items-center gap-[16px] my-[24px]">
                     <div className="flex-1 h-[1px] bg-[#e5e7eb]" />
                     <span className="text-[12px] text-[#6b7280]">OR</span>
                     <div className="flex-1 h-[1px] bg-[#e5e7eb]" />
                 </div>
 
-                {/* Sign Up Link */}
                 <div className="text-center">
                     <span className="text-[14px] text-[#6b7280]">
                         Don't have an account?

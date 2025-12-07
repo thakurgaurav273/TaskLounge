@@ -1,0 +1,74 @@
+<svg viewBox="0 0 500 140" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Gradient for icon -->
+    <linearGradient id="iconGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#6366f1;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#a855f7;stop-opacity:1" />
+    </linearGradient>
+    
+    <!-- Glow effect for dark mode visibility -->
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- Icon background - glassmorphic circle -->
+  <circle cx="70" cy="70" r="45" fill="url(#iconGrad)" opacity="0.9"/>
+  <circle cx="70" cy="70" r="45" fill="none" stroke="url(#iconGrad)" stroke-width="2" opacity="0.3"/>
+  
+  <!-- Icon elements -->
+  <g transform="translate(70, 70)" filter="url(#glow)">
+    <!-- Checkmark -->
+    <path d="M -18 -2 L -10 8 L 18 -22" 
+          fill="none" 
+          stroke="white" 
+          stroke-width="5" 
+          stroke-linecap="round" 
+          stroke-linejoin="round"/>
+    
+    <!-- Voice waveform -->
+    <g transform="translate(8, 18)">
+      <rect x="0" y="-6" width="3" height="12" rx="1.5" fill="white" opacity="0.8"/>
+      <rect x="6" y="-10" width="3" height="20" rx="1.5" fill="white"/>
+      <rect x="12" y="-8" width="3" height="16" rx="1.5" fill="white" opacity="0.8"/>
+    </g>
+  </g>
+  
+  <!-- Brand name - works on both light and dark -->
+  <text x="140" y="75" 
+        font-family="'Space Grotesk', 'Poppins', 'Inter', sans-serif" 
+        font-size="48" 
+        font-weight="700" 
+        fill="#1e293b"
+        letter-spacing="-2">
+    tasklongue
+  </text>
+  
+  <!-- Subtle gradient divider -->
+  <line x1="140" y1="92" x2="220" y2="92" 
+        stroke="url(#iconGrad)" 
+        stroke-width="2" 
+        stroke-linecap="round"
+        opacity="0.4"/>
+  
+  <!-- Tagline with adaptive color -->
+  <g transform="translate(140, 105)">
+    <!-- Voice indicator -->
+    <circle cx="4" cy="4" r="2.5" fill="#6366f1" opacity="0.6"/>
+    <circle cx="4" cy="4" r="5" fill="none" stroke="#6366f1" stroke-width="1.5" opacity="0.3"/>
+    
+    <text x="15" y="8" 
+          font-family="'Space Grotesk', 'Inter', 'Helvetica Neue', Arial, sans-serif" 
+          font-size="15" 
+          font-weight="500" 
+          fill="#6366f1"
+          letter-spacing="0.5"
+          opacity="0.8">
+      Voice-First Task Management
+    </text>
+  </g>
+</svg>

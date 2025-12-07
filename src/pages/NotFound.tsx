@@ -57,7 +57,6 @@ const PageNotFound = () => {
                     </button>
                 </div>
 
-                {/* Popular Links */}
                 <div className="mt-[48px] pt-[32px] border-t-[1px] border-[#e5e7eb]">
                     <p className="text-[13px] font-medium text-[#6b7280] mb-[16px]">
                         You might be looking for:
@@ -70,22 +69,16 @@ const PageNotFound = () => {
                             Home
                         </a>
                         <a
-                            href="#"
+                            href="/login"
                             className="px-[16px] py-[8px] bg-[#ffffff] border-[1px] border-[#e5e7eb] rounded-[6px] text-[13px] text-[#1a1a1a] hover:border-[#5e6ad2] hover:text-[#5e6ad2] transition-all"
                         >
-                            About
+                            Login
                         </a>
                         <a
-                            href="#"
+                            href="/signup"
                             className="px-[16px] py-[8px] bg-[#ffffff] border-[1px] border-[#e5e7eb] rounded-[6px] text-[13px] text-[#1a1a1a] hover:border-[#5e6ad2] hover:text-[#5e6ad2] transition-all"
                         >
-                            Contact
-                        </a>
-                        <a
-                            href="#"
-                            className="px-[16px] py-[8px] bg-[#ffffff] border-[1px] border-[#e5e7eb] rounded-[6px] text-[13px] text-[#1a1a1a] hover:border-[#5e6ad2] hover:text-[#5e6ad2] transition-all"
-                        >
-                            Help Center
+                            Signup
                         </a>
                     </div>
                 </div>

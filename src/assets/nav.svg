@@ -1,0 +1,31 @@
+<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Premium gradient matching the logo -->
+    <linearGradient id="iconGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#667eea;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#764ba2;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Circular background -->
+  <circle cx="50" cy="50" r="48" fill="url(#iconGrad)"/>
+  
+  <!-- Icon elements -->
+  <g transform="translate(50, 50)">
+    <!-- Checkmark -->
+    <path d="M -20 -2 L -11 9 L 20 -24" 
+          fill="none" 
+          stroke="white" 
+          stroke-width="6" 
+          stroke-linecap="round" 
+          stroke-linejoin="round"
+          opacity="0.95"/>
+    
+    <!-- Voice waveform -->
+    <g transform="translate(9, 20)">
+      <rect x="0" y="-7" width="4" height="14" rx="2" fill="white" opacity="0.7"/>
+      <rect x="7" y="-11" width="4" height="22" rx="2" fill="white" opacity="0.85"/>
+      <rect x="14" y="-9" width="4" height="18" rx="2" fill="white" opacity="0.7"/>
+    </g>
+  </g>
+</svg>

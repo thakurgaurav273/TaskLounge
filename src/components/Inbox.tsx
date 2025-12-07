@@ -9,6 +9,7 @@ import { useSelector } from "react-redux";
 import Loading from "./ui/Loading";
 import Avatar from "./ui/Avatar";
 import useDebounce from "./hooks/useDebounce";
+import Composer from "./ui/Composer";
 
 const IconSize = 16;
 
@@ -77,7 +78,7 @@ const Inbox = () => {
         if (selectedItem) {
             // Use || "" to guarantee a string type for the state
             setUpdatedTitle(selectedItem.title || "");
-            setDescription(selectedItem.description || ""); 
+            setDescription(selectedItem.description || "");
             setOriginalTitle(selectedItem.title || "");
             setOriginalDescription(selectedItem.description || "");
         }
@@ -192,9 +193,11 @@ const Inbox = () => {
                                 <div className="min-h-[300px]">
                                     <DescriptionEditor
                                         onSave={handleSave}
-                                        initialValue={description || ""} 
+                                        initialValue={description || ""}
                                     />
                                 </div>
+                                <Composer issue={selectedItem} />
+
                             </div>
 
                         </div>
@@ -203,6 +206,7 @@ const Inbox = () => {
                     </div>
                 </div>
             )}
+
         </div>
     )
 }

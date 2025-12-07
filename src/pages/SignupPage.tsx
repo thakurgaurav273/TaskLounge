@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Mail, Lock, User, ArrowRight, CheckCircle } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import Logo from "../assets/logo_light.svg"
 
 const SignupPage: React.FC = () => {
     const [formData, setFormData] = useState({
@@ -23,7 +24,7 @@ const SignupPage: React.FC = () => {
         console.log('Signup:', formData);
         const response = await fetch('http://localhost:8080/api/users/create', {
             method: 'POST',
-            headers: { 
+            headers: {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
@@ -52,6 +53,9 @@ const SignupPage: React.FC = () => {
             )}
             <div className="w-full max-w-[440px] p-[24px]">
                 <div className="mb-[48px] text-center">
+                    <div className='w-full flex items-center justify-center'>
+                        <img src={Logo} height={50} width={280} />
+                    </div>
                     <h1 className="text-[32px] font-semibold text-[#1a1a1a] mb-[8px]">
                         Create your account
                     </h1>
@@ -171,7 +175,6 @@ const SignupPage: React.FC = () => {
                     </div>
                 </form>
 
-                {/* Footer */}
                 <div className="mt-[32px] text-center">
                     <p className="text-[12px] text-[#6b7280]">
                         By continuing, you agree to our{' '}
