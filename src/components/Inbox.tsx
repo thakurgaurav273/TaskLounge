@@ -165,11 +165,9 @@ const Inbox = () => {
                     </div>
 
                     <div className="flex flex-1 overflow-hidden">
-                        <div className="flex-1 overflow-y-auto">
-                            <div className="p-[20px]">
-                                <input type="text" onChange={handleTitleChange} value={updatedTitle} className="outline-none text-[24px] w-full font-bold" placeholder="Enter issue title" />
-                            </div>
-                            <div className="mb-4 mx-3 flex items-center gap-4 text-xs text-gray-600">
+                        <div className="flex-1 overflow-y-auto px-[20px] py-3 h-full">
+                            <input type="text" onChange={handleTitleChange} name="title" value={updatedTitle} className="outline-none text-[24px] w-full font-bold my-2" placeholder="Enter issue title" />
+                            <div className="mb-4 flex items-center gap-4 text-xs text-gray-600">
                                 <div className="flex items-center gap-2">
                                     <Avatar name={selectedItem.createdBy?.name || 'User'} avatarUrl={selectedItem.createdBy?.avatar} />
                                     <span>{selectedItem.createdBy?.name || 'Unknown'}</span>
@@ -188,18 +186,15 @@ const Inbox = () => {
                                     </>
                                 )}
                             </div>
-                            <div className="px-[20px] pb-[20px]">
+                            <div className="flex flex-col gap-2">
                                 Issue Description:
-                                <div className="min-h-[300px]">
-                                    <DescriptionEditor
-                                        onSave={handleSave}
-                                        initialValue={description || ""}
-                                    />
-                                </div>
-                                <Composer issue={selectedItem} />
+                                <DescriptionEditor
+                                    onSave={handleSave}
+                                    initialValue={description || ""}
+                                />
 
                             </div>
-
+                            <Composer issue={selectedItem} />
                         </div>
 
                         <IssuePropertySideBar issue={selectedItem} />

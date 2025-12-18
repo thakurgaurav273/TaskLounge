@@ -71,7 +71,7 @@ const Composer = ({ issue }: { issue: Issue | null }) => {
       <div className="img-wrapper flex">
 
       </div>
-      <div className="flex items-center space-x-3">
+      <div className="flex items-center">
         <input
           type="text"
           className="flex-grow text-gray-800 placeholder-gray-500 py-1 focus:outline-none"
@@ -98,7 +98,7 @@ const Composer = ({ issue }: { issue: Issue | null }) => {
         <button
           onClick={handleSend}
           disabled={!canSend}
-          className={`flex items-center justify-center h-8 w-8 rounded-full transition-all duration-200 ease-in-out
+          className={`flex flex-shrink-0 items-center justify-center h-8 w-8 rounded-full transition-all duration-200 ease-in-out
                     ${canSend
               ? 'bg-blue-500 hover:bg-blue-600 shadow-md'
               : 'bg-gray-200 cursor-not-allowed'}`}

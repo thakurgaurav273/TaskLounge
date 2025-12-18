@@ -109,7 +109,7 @@ const IssueContainer = ({ issue, onBack }: { issue: Issue | null, onBack?: () =>
         })}
       </div>
       <div className="content flex flex-col mx-18 my-10 flex-1 h-full box-border">
-        <div className="flex flex-col min-h-[100px]">
+        <div className="flex flex-col min-h-[500px]">
           <input type="text" onChange={handleTitleChange} value={updatedTitle} className="outline-none text-[24px] font-bold" placeholder="Enter issue title" />
           <DescriptionEditor initialValue={issue?.description} classNames="text-[18px]" onSave={handleSave} handleSaveDirectly={true} />
         </div>

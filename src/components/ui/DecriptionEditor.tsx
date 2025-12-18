@@ -95,7 +95,7 @@ const DescriptionEditor = ({
   };
 
   return (
-    <div className="w-[100%] relative">
+    <div className="w-[100%] relative h-[100%]">
       {isEmpty && !isLoading && (
         <div className="absolute left-[0] top-[10px] pointer-events-none text-[15px] text-[#9ca3af]">
           {placeholder}
@@ -107,7 +107,7 @@ const DescriptionEditor = ({
         contentEditable={!isLoading}
         suppressContentEditableWarning={true}
         className= {`w-[100%]
-          min-h-[40px]
+          h-[100%]
           py-[8px]
           bg-[#ffffff]
           border-[0]
